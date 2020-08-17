@@ -3,12 +3,14 @@ package com.example.membership;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -52,7 +55,7 @@ public class JoiyaMembershipForm extends AppCompatActivity {
     public static final String TAG1 = "TAG";
     public boolean form = false;
     EditText profileFullName, profileEmail, profilePhone, profileFathersName, profileCNIC, profileEducation, profileProfession, profileDesignation, profileAddress, profileCity;
-    ImageView profileImageView;
+    ImageView profileImageView, profilePicImage;
     Button saveBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -62,6 +65,7 @@ public class JoiyaMembershipForm extends AppCompatActivity {
     String uid;
     ProgressBar saveProgressBar;
     private TextView mDisplayDate;
+    TextView profilePicText;
     private DatePickerDialog.OnDateSetListener onDateSetListener,mDateSetListener;
 
     @Override
@@ -70,7 +74,8 @@ public class JoiyaMembershipForm extends AppCompatActivity {
         setContentView(R.layout.activity_joiya_membership_form);
         Toast.makeText(this, "Form opened.", Toast.LENGTH_SHORT).show();
 
-
+        profilePicImage = findViewById(R.id.imageAddPic);
+        profilePicText = findViewById(R.id.textAddPic);
         mDisplayDate = (TextView) findViewById(R.id.profileDOB);
         profileProfession = findViewById(R.id.profileProfession);
         profileFathersName = findViewById(R.id.profileFathersName);
@@ -217,6 +222,31 @@ public class JoiyaMembershipForm extends AppCompatActivity {
             }
         });
 
+        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(profilePicImage);
+            }
+        });
+
+        profilePicImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent, 1000);
+            }
+        });
+
+
+
+      /*  profilePicText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent, 1000);
+            }
+        }); */
 
     }
 
@@ -234,4 +264,44 @@ public class JoiyaMembershipForm extends AppCompatActivity {
         }
         return "";
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            if(resultCode == Activity.RESULT_OK){
+
+                Uri imageUri = data.getData();
+                //profileImage.setImageURI(imageUri);
+                Toast.makeText(JoiyaMembershipForm.this, "Profile Picture added successfully.", Toast.LENGTH_SHORT).show();
+
+                uploadImageToFirebase(imageUri);
+            }
+        }
+    }
+
+    private void uploadImageToFirebase(Uri imageUri) {
+        // upload image to firebase storage
+        final StorageReference fileRef = storageReference.child("users/"+ fAuth.getCurrentUser().getUid()+"/profile.jpg");
+
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(JoiyaMembershipForm.this, "Image Uploaded.", Toast.LENGTH_SHORT).show();
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profileImageView);
+
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(JoiyaMembershipForm.this, "Failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

@@ -55,7 +55,7 @@ import javax.annotation.Nullable;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob;
+    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, Card;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.setTitle("Profile");
 
+        Card = findViewById(R.id.generateCard);
+        editInfo = findViewById(R.id.editInfo);
         Phone = findViewById(R.id.textPhone);
         fullName = findViewById(R.id.textName);
         Email = findViewById(R.id.textEmail);
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(fAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(), Login.class));
+            Toast.makeText(this, "Generating Card", Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 designation.setText(documentSnapshot.child("designation").getValue(String.class));
                 profession.setText(documentSnapshot.child("profession").getValue(String.class));
                 city.setText(documentSnapshot.child("city").getValue(String.class));
-                status.setText(documentSnapshot.child("status").getValue(String.class));
+                status.setText(documentSnapshot.child("status1").getValue(String.class));
                 timestamp.setText(documentSnapshot.child("timestamp").getValue(String.class));
                 dob.setText(documentSnapshot.child("profileDob").getValue(String.class));
             }
@@ -137,6 +140,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        editInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, JoiyaMembershipForm.class);
+                startActivity(intent);
+            }
+        });
 
 
         resetPass.setOnClickListener(new View.OnClickListener() {
@@ -201,9 +211,18 @@ public class MainActivity extends AppCompatActivity {
         });   */
 
 
+        Card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, generateCard.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
-   @Override
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater=getMenuInflater();
@@ -227,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
 
 
 

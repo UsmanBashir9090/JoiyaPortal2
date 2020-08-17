@@ -187,8 +187,20 @@
                     android:layout_marginTop="2dp"
                     android:textColorHint="#fff"  />
 
+                <TextView
+                    android:id="@+id/textAddPic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#fff"
+                    android:text="Add Profile Picture" />
 
-
+                <ImageView
+                    android:id="@+id/imageAddPic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/profile" />
 
 
 
@@ -206,6 +218,7 @@
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     />
+
 
             </LinearLayout>
 
