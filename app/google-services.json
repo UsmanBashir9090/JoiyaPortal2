@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:266293454852:android:dd6648b8ba832c4f80ad51",
         "android_client_info": {
-          "package_name": "com.example.membership"
+          "package_name": "coms.first.membership"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "266293454852-14bj5hu9jh5eseepj5u1uh0d3lomuei5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.membership",
+            "package_name": "coms.first.membership",
             "certificate_hash": "864319dc33155da3079e2580f368de4e336a1c7a"
           }
         },

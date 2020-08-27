@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".splash">
+    tools:context="coms.first.membership.splash">
 
 
 
@@ -29,8 +29,7 @@
                 android:layout_width="170dp"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
-                android:background="@drawable/tablogo"
-                />
+                android:background="@drawable/logo2" />
 
             <TextView
                 android:layout_marginTop="20dp"

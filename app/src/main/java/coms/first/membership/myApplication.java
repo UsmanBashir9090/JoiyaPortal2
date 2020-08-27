@@ -1,4 +1,4 @@
-package com.example.membership;
+package coms.first.membership;
 
 import android.app.Application;
 

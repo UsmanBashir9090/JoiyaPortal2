@@ -1,16 +1,19 @@
-package com.example.membership;
+package coms.first.membership;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class memberEditData extends AppCompatActivity {
+    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic;
+    ;
 
 
-public class memberData {
-    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status, status1;
-     ;
-
-
-    public memberData(){
+    public memberEditData(){
 
     }
 
-    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String role, String timestamp, String status, String status1) {
+    public memberEditData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -22,10 +25,7 @@ public class memberData {
         this.address = address;
         this.city = city;
         this.cnic = cnic;
-        this.role =role;
-        this.timestamp=timestamp;
-        this.status=status;
-        this.status1=status1;
+
 
     }
 
@@ -44,20 +44,4 @@ public class memberData {
         return profileDob;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getStatus1() {
-        return status1;
-    }
 }
-

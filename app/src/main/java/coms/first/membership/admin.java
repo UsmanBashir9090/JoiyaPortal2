@@ -1,4 +1,4 @@
-package com.example.membership;
+package coms.first.membership;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import coms.first.membership.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class admin extends AppCompatActivity {

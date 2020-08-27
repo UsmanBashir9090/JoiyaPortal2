@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
-    tools:context="coms.first.membership.approved_list">
-
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/LV"/>
+    tools:context=".memberEditData">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

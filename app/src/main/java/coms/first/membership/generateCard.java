@@ -1,15 +1,20 @@
-package com.example.membership;
+package coms.first.membership;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,24 +23,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class generateCard extends AppCompatActivity {
 
     TextView fullName, Email, Phone, fathersName, CNIC, city, profession, designation, education, status, dob;
     Button back;
-    ImageView cardSettings;
+    ImageView cardImage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     FirebaseUser user;
     String userId;
     DatabaseReference database;
+    StorageReference storageReference;
+    FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_card);
 
-        cardSettings = findViewById(R.id.cardSettings);
+       // cardSettings = findViewById(R.id.cardSettings);
+        cardImage = findViewById(R.id.cardImage);
         back = findViewById(R.id.backButton);
         dob = findViewById(R.id.cardDOB);
         Phone = findViewById(R.id.cardPhone);
@@ -49,6 +60,7 @@ public class generateCard extends AppCompatActivity {
         fathersName = findViewById(R.id.cardFathersName);
         status = findViewById(R.id.cardStatus);
 
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -93,6 +105,19 @@ public class generateCard extends AppCompatActivity {
             }
         });
 
+
+        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(cardImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(generateCard.this, "Failed to load image.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

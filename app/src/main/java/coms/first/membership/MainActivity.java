@@ -1,16 +1,13 @@
-package com.example.membership;
+package coms.first.membership;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,25 +15,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 
@@ -45,21 +32,16 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URI;
-
-import javax.annotation.Nullable;
-
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, Card;
+    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, checking;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
-    Button  changeProfileImage;
+    Button changeProfileImage ;
     FirebaseUser user;
     ImageView profileImage;
     StorageReference storageReference;
@@ -73,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.setTitle("Profile");
 
-        Card = findViewById(R.id.generateCard);
+        profileImage = findViewById(R.id.profilePicture);
         editInfo = findViewById(R.id.editInfo);
         Phone = findViewById(R.id.textPhone);
         fullName = findViewById(R.id.textName);
@@ -90,23 +72,26 @@ public class MainActivity extends AppCompatActivity {
         timestamp = findViewById(R.id.timestamp);
         dob = findViewById(R.id.dob);
         resetPass = findViewById(R.id.resetpassword);
-     //   profileImage = findViewById(R.id.profileImage);
-     //   changeProfileImage = findViewById(R.id.changeProfile);
+        checking = findViewById(R.id.Check);
+        //   profileImage = findViewById(R.id.profileImage);
+        //   changeProfileImage = findViewById(R.id.changeProfile);
 
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        /*storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+
         StorageReference profileRef = storageReference.child("users/"+ fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(profileImage);
             }
-        }); */
+        });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        if(fAuth.getCurrentUser() == null){
+        if (fAuth.getCurrentUser() == null) {
             startActivity(new Intent(getApplicationContext(), Login.class));
             Toast.makeText(this, "Generating Card", Toast.LENGTH_SHORT).show();
             finish();
@@ -143,11 +128,18 @@ public class MainActivity extends AppCompatActivity {
         editInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, JoiyaMembershipForm.class);
+                Intent intent = new Intent(MainActivity.this, EditProfile.class);
                 startActivity(intent);
             }
         });
 
+    checking.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), membershipForm.class);
+            startActivity(intent);
+        }
+    });
 
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final EditText resetPassword = new EditText(v.getContext());
 
-                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext(), R.style.MyDialogTheme);
                 passwordResetDialog.setTitle("Reset Password?");
                 passwordResetDialog.setMessage("Enter New Password at least 8 Characters long.");
                 passwordResetDialog.setView(resetPassword);
@@ -211,42 +203,39 @@ public class MainActivity extends AppCompatActivity {
         });   */
 
 
-        Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, generateCard.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater=getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
 
     @Override
-    public boolean onOptionsItemSelected( MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuLogout:
 
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(this, Login.class) );
+                startActivity(new Intent(this, Login.class));
+                break;
+            case R.id.menuUser:
+
+                startActivity(new Intent(this, generateCard.class));
 
                 break;
+
+
+            }
+
+            return true;
         }
-
-        return true;
-    }
-
 
 
 
@@ -260,5 +249,6 @@ public class MainActivity extends AppCompatActivity {
         }  */
 
     }
+
 
 

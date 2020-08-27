@@ -8,7 +8,7 @@
     android:background="@drawable/back"
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
-    tools:context=".pending_list_details">
+    tools:context="coms.first.membership.pending_list_details">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,6 @@
 
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -155,7 +154,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="20dp"
             android:orientation="vertical"
             >
 
@@ -431,28 +429,6 @@
             android:layout_height="wrap_content"
             android:onClick="buttonaccept"
             android:text="Approve"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     </LinearLayout>

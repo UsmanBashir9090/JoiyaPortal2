@@ -1,18 +1,13 @@
-package com.example.membership;
+package coms.first.membership;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,33 +17,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
-
-import javax.annotation.Nullable;
 
 public class JoiyaMembershipForm extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -112,14 +94,14 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     month = month + 1;
-                    Log.d(TAG, "onDateSet: mm/dd/yyy: " + day + "/" + month + "/" + year);
+                 //   Log.d(TAG, "onDateSet: mm/dd/yyy: " + day + "/" + month + "/" + year);
 
                     String date = month +"/" + day +"/" + year ;
                     mDisplayDate.setText(date);
                 }
             };
 
-
+/*
 
         memberDB= FirebaseDatabase.getInstance().getReference("users");
 
@@ -221,8 +203,8 @@ public class JoiyaMembershipForm extends AppCompatActivity {
 
             }
         });
-
-        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
+*/
+      /*  StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -238,7 +220,7 @@ public class JoiyaMembershipForm extends AppCompatActivity {
             }
         });
 
-
+*/
 
       /*  profilePicText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,7 +247,7 @@ public class JoiyaMembershipForm extends AppCompatActivity {
         return "";
     }
 
-    @Override
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000){
@@ -303,5 +285,5 @@ public class JoiyaMembershipForm extends AppCompatActivity {
             }
         });
     }
-
+*/
 }

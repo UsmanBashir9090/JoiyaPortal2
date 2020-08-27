@@ -1,4 +1,4 @@
-package com.example.membership;
+package coms.first.membership;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -123,7 +124,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 final EditText resetMail = new EditText(v.getContext());
-                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext(),  R.style.MyDialogTheme);
                 passwordResetDialog.setTitle("Reset Password ?");
                 passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
                 passwordResetDialog.setView(resetMail);
@@ -132,7 +133,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // extract the email and send reset link
-                        String mail = resetMail.getText().toString();
+                        String mail = resetMail.getText().toString().trim();
                         fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

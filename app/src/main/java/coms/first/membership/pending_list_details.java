@@ -1,29 +1,22 @@
-package com.example.membership;
+package coms.first.membership;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.StorageReference;
 
 public class pending_list_details extends AppCompatActivity {
 
-    TextView fullName, Email, uid, Phone, fathersName, CNIC, address, city, profession, designation, education, status, timestamp, dob;
+    TextView fullName, Email, uid, Phone, fathersName, CNIC, address, city, profession, designation, education, status, timestamp, dob, viewCard;
     FirebaseUser user;
     DatabaseReference database, ref;
     String id;
@@ -35,7 +28,7 @@ public class pending_list_details extends AppCompatActivity {
         setContentView(R.layout.activity_pending_list_details);
 
 
-
+       // viewCard = findViewById(R.id.generateCard);
         Phone = findViewById(R.id.textPhone);
         fullName = findViewById(R.id.textName);
         Email = findViewById(R.id.textEmail);
@@ -53,6 +46,15 @@ public class pending_list_details extends AppCompatActivity {
         uid = findViewById(R.id.uid);
 
         final String key = getIntent().getExtras().get("key").toString();
+
+     /*   viewCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = (new Intent(getApplicationContext(), viewCard.class));
+                startActivity(intent);
+
+            }
+        }); */
 
         fullName.setText(getIntent().getStringExtra("name"));
         Email.setText(getIntent().getStringExtra("email"));

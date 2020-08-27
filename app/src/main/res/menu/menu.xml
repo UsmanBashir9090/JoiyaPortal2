@@ -9,8 +9,8 @@
 
 
     <item
-
-        android:title="User"
+        android:id="@+id/menuUser"
+        android:title="Generate ID Card"
 
         />
 
