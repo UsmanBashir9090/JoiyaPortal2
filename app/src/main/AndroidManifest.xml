@@ -4,6 +4,8 @@
     package="coms.first.membership">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".myApplication"
@@ -15,7 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".membershipForm"></activity>
+        <activity android:name=".Spinners"></activity>
+        <activity android:name=".Screenshot" />
+        <activity android:name=".sharingID" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".activityFacebook" />
+        <activity android:name=".membershipForm" />
         <activity android:name=".viewCard" />
         <activity android:name=".memberEditData" />
         <activity android:name=".generateCard" />
@@ -36,6 +47,11 @@
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1490678764464575"
+            android:exported="true" />
     </application>
 
 </manifest>

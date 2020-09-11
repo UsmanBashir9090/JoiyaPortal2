@@ -26,11 +26,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
+/*
 public class generateCard extends AppCompatActivity {
 
     TextView fullName, Email, Phone, fathersName, CNIC, city, profession, designation, education, status, dob;
-    Button back;
+    Button back, check;
     ImageView cardImage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -59,6 +59,7 @@ public class generateCard extends AppCompatActivity {
         education = findViewById(R.id.cardEducation);
         fathersName = findViewById(R.id.cardFathersName);
         status = findViewById(R.id.cardStatus);
+        check = findViewById(R.id.checkButton);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -72,12 +73,12 @@ public class generateCard extends AppCompatActivity {
         }
         userId = user.getUid();
 
-        database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+      //  database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
-        database.addValueEventListener(new ValueEventListener() {
+       database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
-                Phone.setText(documentSnapshot.child("phone").getValue(String.class));
+              Phone.setText(documentSnapshot.child("phone").getValue(String.class));
                 fullName.setText(documentSnapshot.child("name").getValue(String.class));
                 Email.setText(documentSnapshot.child("email").getValue(String.class));
                 fathersName.setText(documentSnapshot.child("fatherName").getValue(String.class));
@@ -91,7 +92,7 @@ public class generateCard extends AppCompatActivity {
                 fullName.setText(documentSnapshot.child("name").getValue(String.class));
             }
 
-            @Override
+
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
@@ -119,5 +120,14 @@ public class generateCard extends AppCompatActivity {
             }
         });
 
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), activityFacebook.class));
+                Toast.makeText(generateCard.this, "opening share to facebook page", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
-}
+
+}*/

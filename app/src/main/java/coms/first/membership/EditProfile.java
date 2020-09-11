@@ -12,11 +12,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +52,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 public class EditProfile extends AppCompatActivity {
-    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education,role, resetPass, status,  dob, timeStamp, status1;
+    public static final String TAG1 = "TAG";
+    TextView fullName, email, phone, fathersName, CNIC, address, city, profession, education,role, resetPass, status,  dob, timeStamp, status1, tehsil, district, division;
+    String designation, province;
     TextView textPic;
     ImageView profileImageView, imagePic;
     Button saveBtn;
@@ -58,6 +64,9 @@ public class EditProfile extends AppCompatActivity {
     FirebaseUser user;
     StorageReference storageReference;
     FirebaseStorage storage;
+    Spinner spinnerProvince, spinnerDesignation;
+    ArrayAdapter<CharSequence> adapterProvince;
+    ArrayAdapter<CharSequence> adapterDesignation;
 
     DatabaseReference database;
     DatabaseReference memberDB;
@@ -66,6 +75,7 @@ public class EditProfile extends AppCompatActivity {
     private TextView mDisplayDate;
 
     public static final String TAG = "TAG";
+    public static final String TAG2 = TAG;
 
 
     @Override
@@ -74,21 +84,39 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
 
-        textPic = findViewById(R.id.textAddPic);
-        imagePic = findViewById(R.id.imageAddPic);
-        saveBtn = findViewById(R.id.submitBtn);
-        Phone = findViewById(R.id.profilePhoneNo);
-        fullName = findViewById(R.id.profileFullName);
-        Email = findViewById(R.id.profileEmailAddress);
-        fathersName = findViewById(R.id.profileFathersName);
-        CNIC = findViewById(R.id.profileCNIC);
-        address = findViewById(R.id.profileAddress);
-        city = findViewById(R.id.profileCity);
-        profession = findViewById(R.id.profileProfession);
-        designation = findViewById(R.id.profileDesignation);
-        education = findViewById(R.id.profileEducation);
+        spinnerDesignation = (Spinner) findViewById(R.id.editDesignation);
+        adapterDesignation = ArrayAdapter.createFromResource(this, R.array.Designation, android.R.layout.simple_spinner_item);
+        adapterDesignation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDesignation.setAdapter(adapterDesignation);
+
+        spinnerProvince = (Spinner) findViewById(R.id.editProvince);
+        adapterProvince = ArrayAdapter.createFromResource(this, R.array.Province, android.R.layout.simple_spinner_item);
+        adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProvince.setAdapter(adapterProvince);
+
+
+
+
+        spinnerDesignation = (Spinner) findViewById(R.id.editDesignation);
+        spinnerProvince = (Spinner) findViewById(R.id.editProvince);
+        Log.d(TAG2,"province is " + province);
+        imagePic = findViewById(R.id.editImage);
+        saveBtn = findViewById(R.id.saveButton);
+        phone = findViewById(R.id.editPhone);
+        fullName = findViewById(R.id.editName);
+        email = findViewById(R.id.editEmail);
+        fathersName = findViewById(R.id.editFatherName);
+        CNIC = findViewById(R.id.editCNIC);
+        address = findViewById(R.id.editAddress);
+        city = findViewById(R.id.editCity);
+        profession = findViewById(R.id.editProfession);
+
+        tehsil = findViewById(R.id.editTehsil);
+        division = findViewById(R.id.editDivision);
+        district = findViewById(R.id.editDistrict);
+        education = findViewById(R.id.editEducation);
         // dob = findViewById(R.id.profileDOB);
-        mDisplayDate = (TextView) findViewById(R.id.profileDOB);
+        mDisplayDate = (TextView) findViewById(R.id.editDOB);
         status = findViewById(R.id.status);
         status1 = findViewById(R.id.status1);
         role = findViewById(R.id.role);
@@ -105,22 +133,28 @@ public class EditProfile extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
+        //Access the array kept in the string
+        //Use int variables made to extract which array value of desig and prov was selected
+        //figure out how to save "which spinner value was chosen by the user"
+
+
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
-                Phone.setText(documentSnapshot.child("phone").getValue(String.class));
+                phone.setText(documentSnapshot.child("phone").getValue(String.class));
                 fullName.setText(documentSnapshot.child("name").getValue(String.class));
-                Email.setText(documentSnapshot.child("email").getValue(String.class));
+                email.setText(documentSnapshot.child("email").getValue(String.class));
                 fathersName.setText(documentSnapshot.child("fatherName").getValue(String.class));
                 CNIC.setText(documentSnapshot.child("cnic").getValue(String.class));
                 education.setText(documentSnapshot.child("education").getValue(String.class));
                 address.setText(documentSnapshot.child("address").getValue(String.class));
-                designation.setText(documentSnapshot.child("designation").getValue(String.class));
                 profession.setText(documentSnapshot.child("profession").getValue(String.class));
                 city.setText(documentSnapshot.child("city").getValue(String.class));
                 mDisplayDate.setText(documentSnapshot.child("profileDob").getValue(String.class));
+                tehsil.setText(documentSnapshot.child("tehsil").getValue(String.class));
+                district.setText(documentSnapshot.child("district").getValue(String.class));
+                division.setText(documentSnapshot.child("division").getValue(String.class));
                 timeStamp.setText(documentSnapshot.child("timestamp").getValue(String.class));
-                status.setText(documentSnapshot.child("status").getValue(String.class));
                 role.setText(documentSnapshot.child("role").getValue(String.class));
                 status1.setText(documentSnapshot.child("status1").getValue(String.class));
             }
@@ -130,6 +164,15 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
+
+        imagePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent, 1000);
+            }
+        });
+
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,58 +200,59 @@ public class EditProfile extends AppCompatActivity {
             }
         };
 
-/*
+
         memberDB= FirebaseDatabase.getInstance().getReference("users");
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String profileName = fullName.getText().toString();
-                final String profileEmail = Email.getText().toString();
-                final String profilePhone = Phone.getText().toString();
-                final String profileFathersName = fathersName.getText().toString();
-                final String profileCnic = CNIC.getText().toString().trim();
-                final String profileEducation = education.getText().toString().trim();
-                final String profileProfession = profession.getText().toString();
-                final String profileDesignation = designation.getText().toString().trim();
-                final String profileAddress = address.getText().toString().trim();
-                final String profileCity = city.getText().toString().trim();
-                final String profileDob = mDisplayDate.getText().toString();
-                final String timestamp = timeStamp.getText().toString();
-                final String Status = status.getText().toString();
-                final String Role = role.getText().toString();
-                final String Status1 = status1.getText().toString();
+                final String Name = fullName.getText().toString();
+                final String Email = email.getText().toString();
+                final String Phone = phone.getText().toString();
+                final String FathersName = fathersName.getText().toString();
+                final String Cnic = CNIC.getText().toString().trim();
+                final String Education = education.getText().toString().trim();
+                final String Profession = profession.getText().toString();
+                final String Designation = spinnerDesignation.getSelectedItem().toString();
+                final String Province = spinnerProvince.getSelectedItem().toString();
+                final String Address = address.getText().toString().trim();
+                final String City = city.getText().toString().trim();
+                final String Dob = mDisplayDate.getText().toString();
+                final String Tehsil = tehsil.getText().toString();
+                final String District = district.getText().toString();
+                final String Division = division.getText().toString();
+                final String time = timeStamp.getText().toString();
 
-                if (TextUtils.isEmpty(profileFathersName)) {
+                if (TextUtils.isEmpty(FathersName)) {
                     fathersName.setError("Father's Name is required");
                     fathersName.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(profileName)) {
+                if (TextUtils.isEmpty(Name)) {
                     fullName.setError("Name is required");
                     fullName.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(profileEmail)) {
-                    Email.setError("Email is required");
-                    Email.requestFocus();
+                if (TextUtils.isEmpty(Email)) {
+                    email.setError("Email is required");
+                    email.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(profilePhone)) {
-                    Phone.setError("Phone Number is required");
-                    Phone.requestFocus();
+                if (TextUtils.isEmpty(Phone)) {
+                    phone.setError("Phone Number is required");
+                    phone.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(profileDob)) {
+                if (TextUtils.isEmpty(Dob)) {
                     mDisplayDate.setError("Date of Birth is required");
                     mDisplayDate.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(profileCnic)) {
+                if (TextUtils.isEmpty(Cnic)) {
                     CNIC.setError("CNIC is required");
                     CNIC.requestFocus();
                     return;
@@ -218,199 +262,88 @@ public class EditProfile extends AppCompatActivity {
                     CNIC.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(profileEducation)) {
+                if (TextUtils.isEmpty(Education)) {
                     education.setError("Education is required");
                     education.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(profileProfession)) {
+                if (TextUtils.isEmpty(Profession)) {
                     profession.setError("Profession is required");
                     profession.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(profileDesignation)) {
-                    designation.setError("Designation is required");
-                    designation.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(profileAddress)) {
+
+                if (TextUtils.isEmpty(Address)) {
                     address.setError("Address is required");
                     address.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(profileCity)) {
+                if (TextUtils.isEmpty(City)) {
                     city.setError("City is required");
                     city.requestFocus();
                     return;
                 }
+                if(TextUtils.isEmpty(Tehsil)){
+                    tehsil.setError("Tehsil is required");
+                    tehsil.requestFocus();
+                    return;
+                }
+                if(TextUtils.isEmpty(Division)){
+                    division.setError("Division is required");
+                    division.requestFocus();
+                    return;
+                }
+                if(TextUtils.isEmpty(District)){
+                    district.setError("District is required");
+                    district.requestFocus();
+                    return;
+                }
 
 
-                user=FirebaseAuth.getInstance().getCurrentUser();
-                uid=user.getUid();
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                uid = user.getUid();
+                String role = "user";
+                String status = "Your Application is Pending";
+                String status1 = "pending";
 
-                memberData placeorder = new memberData( profileName, profileEmail, profilePhone, profileFathersName, profileProfession, profileDob, profileDesignation, profileEducation, profileAddress, profileCity, profileCnic, Role, timestamp, Status, Status1);
+                Log.d(TAG2,"province is " + province);
+                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, role, time, status, status1);
                 memberDB.child(uid).setValue(placeorder);
-
-                Toast.makeText(getApplicationContext(), "Profile Updated.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EditProfile.this, MainActivity.class);
                 startActivity(intent);
                 finish();
 
-
             }
         });
 
-        fStore = FirebaseFirestore.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
+
+        StorageReference profileRef = storageReference.child("users/"+ fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(imagePic);
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProfile.this, "Failed to load image.", Toast.LENGTH_SHORT).show();
-            }
         });
 
-
-        storageReference = FirebaseStorage.getInstance().getReference();
-        imagePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, 1000);
-            }
-        });
-
-
-/*
-        Intent data = getIntent();
-        final String fullName = data.getStringExtra("fName");
-        String email = data.getStringExtra("email");
-        final String phone = data.getStringExtra("phone");
-
-        profileFullName = findViewById(R.id.profileFullName);
-        profileEmail = findViewById(R.id.profileEmailAddress);
-        profilePhone = findViewById(R.id.profilePhoneNo);
-        profileImageView = findViewById(R.id.profileImageView);
-        saveBtn = findViewById(R.id.saveProfileInfo);
-        storageReference = FirebaseStorage.getInstance().getReference();
-
-        fAuth = FirebaseAuth.getInstance();
-        user = fAuth.getCurrentUser();
-        fStore = FirebaseFirestore.getInstance();
-
-        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profileImageView);
-            }
-        });
-
-
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, 1000);
-            }
-        });
-
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty() || profilePhone.getText().toString().isEmpty()) {
-                    Toast.makeText(EditProfile.this, "Some field(s) are empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                final String email = profileEmail.getText().toString();
-                user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        DocumentReference docRef = fStore.collection("users").document(user.getUid());
-                        Map<String, Object> edited = new HashMap<>();
-                        edited.put("email", email);
-                        edited.put("fName", profileFullName.getText().toString());
-                        edited.put("phone", profilePhone.getText().toString());
-                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(EditProfile.this, "Profile updated.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(EditProfile.this, "Failed.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        // Toast.makeText(EditProfile.this, "Email is changed", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
-
-        profileEmail.setText(email);
-        profileFullName.setText(fullName);
-        profilePhone.setText(phone);
-
-        Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
     }
-*/ /*
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            if(requestCode == 1000){
-                if(resultCode == Activity.RESULT_OK){
 
-                    Uri imageUri = data.getData();
-                    //profileImage.setImageURI(imageUri);
-                    Toast.makeText(EditProfile.this, "Profile Picture added successfully.", Toast.LENGTH_SHORT).show();
-
-                    uploadImageToFirebase(imageUri);
-                }
-            }
+    public  String getDateCurrentTimeZone(Map<String, String> timestamp) {
+        try{
+            Calendar calendar = Calendar.getInstance();
+            TimeZone tz = TimeZone.getTimeZone("Asia/karachi");
+            //   calendar.setTimeInMillis(timestamp * 1000);
+            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss aaa");
+            Date currenTimeZone = (Date) calendar.getTime();
+            return sdf.format(currenTimeZone);
+        }catch (Exception e) {
         }
-
-        private void uploadImageToFirebase(Uri imageUri) {
-            // upload image to firebase storage
-            final StorageReference fileRef = storageReference.child("users/"+ fAuth.getCurrentUser().getUid()+"/profile.jpg");
-
-            fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditProfile.this, "Image Uploaded.", Toast.LENGTH_SHORT).show();
-                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Picasso.get().load(uri).into(profileImageView);
-
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfile.this, "Failed.", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-*/ /*
+        return "";
     }
-    @Override
+
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000){
@@ -447,23 +380,5 @@ public class EditProfile extends AppCompatActivity {
                 Toast.makeText(EditProfile.this, "Failed.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-    public  String getDateCurrentTimeZone(Map<String, String> timestamp) {
-        try{
-            Calendar calendar = Calendar.getInstance();
-            TimeZone tz = TimeZone.getTimeZone("Asia/karachi");
-            //   calendar.setTimeInMillis(timestamp * 1000);
-            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss aaa");
-            Date currenTimeZone = (Date) calendar.getTime();
-            return sdf.format(currenTimeZone);
-        }catch (Exception e) {
-        }
-        return "";
-    }
-*/
-
     }
 }

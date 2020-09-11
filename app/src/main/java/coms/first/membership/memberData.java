@@ -6,9 +6,6 @@ public class memberData {
      ;
 
 
-    public memberData(){
-
-    }
 
     public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String tehsil, String district, String division, String province,  String role, String timestamp, String status, String status1) {
         this.name = name;

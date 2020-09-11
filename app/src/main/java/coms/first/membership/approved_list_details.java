@@ -27,7 +27,6 @@ public class approved_list_details extends AppCompatActivity {
         Phone = findViewById(R.id.textPhone);
         fullName = findViewById(R.id.textName);
         Email = findViewById(R.id.textEmail);
-        fathersName = findViewById(R.id.profileFathersName);
         CNIC = findViewById(R.id.profileCNIC);
         address = findViewById(R.id.profileAddress);
         city = findViewById(R.id.profileCity);

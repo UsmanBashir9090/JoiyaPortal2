@@ -10,7 +10,10 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="select_province">Select Province</string>
-    <string name= "select_designation">Select Designation</string>
+    <string name="select_designation">Select Designation</string>
+    <string name="facebook_app_id">1490678764464575</string>
+    <string name="facebook_login_protocol_scheme">fb1490678764464575</string>
+
     <string-array name="Province">
         <item>Sindh</item>
         <item>Balochistan</item>
@@ -20,13 +23,15 @@
         <item>Azad Jammu and Kashmir</item>
 
     </string-array>
+
     <string-array name="Designation">
-        <item>President</item>
-        <item>General Secretary</item>
-        <item>Vice President</item>
-        <item>Press Secretary</item>
-        <item>Join Secretary</item>
         <item>Member</item>
+        <item>Join Secretary</item>
+        <item>Press Secretary</item>
+        <item>Vice President</item>
+        <item>General Secretary</item>
+        <item>President</item>
 
     </string-array>
+
 </resources>

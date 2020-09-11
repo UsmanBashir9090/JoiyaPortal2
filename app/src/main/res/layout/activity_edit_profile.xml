@@ -1,260 +1,392 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    tools:context="coms.first.membership.JoiyaMembershipForm"
-    >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+    tools:context=".MainActivity">
 
 
-        <RelativeLayout
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:text="APJQI"
+        android:textColor="#ffffff"
+        android:textColorHint="@color/colorAccent"
+        android:textFontWeight="700"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="All Pakistan Joiya Qaumi Ittehad"
+        android:textColor="#ffffff"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="390dp"
+        android:layout_height="599dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#FFFCFC"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="16dp"
+        app:cardMaxElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:layout_height="620dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Joiya Membership Form"
+                    android:textSize="20dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/view2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="12dp"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9"
+                    app:cardCornerRadius="40dp">
+
+                    <ImageView
+                        android:id="@+id/editImage"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/icon">
+
+                    </ImageView>
+                </androidx.cardview.widget.CardView>
+
+                <EditText
+                    android:id="@+id/editName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:text="Edit Membership Form"
-                    android:textSize="25dp"
-                    android:layout_marginTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:textColor="#fff"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Full name"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Contact number"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Email address"
+                    android:inputType="textEmailAddress"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editFatherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Father's name"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Date Of Birth"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editEducation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Education"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editProfession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Profession"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Home Address"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editCNIC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Enter CNIC"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editTehsil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Tehsil"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="District"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/editDivision"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Division"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/selectProvince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_province"
+
                     />
 
-                <EditText
-                    android:id="@+id/profileFullName"
+                <Spinner
+                    android:id="@+id/editProvince"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Full Name"
-                    android:textColor="#fff"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff" />
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/montserrat"
+
+                    />
+
 
                 <EditText
-                    android:id="@+id/profilePhoneNo"
+                    android:id="@+id/editCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Contact No."
-                    android:textColor="#fff"
-                    android:inputType="number"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff" />
-
-                <EditText
-                    android:id="@+id/profileEmailAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Email"
-                    android:textColor="#fff"
-                    android:inputType="textEmailAddress"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff" />
-
-                <EditText
-                    android:id="@+id/profileAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Address"
-                    android:textColor="#fff"
-                    android:inputType="text"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff" />
-
-                <EditText
-                    android:id="@+id/profileCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
                     android:hint="City"
-                    android:textColor="#fff"
-                    android:inputType="text"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff"  />
-
-
-                <EditText
-                    android:id="@+id/profileCNIC"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="CNIC"
-                    android:textColor="#fff"
-                    android:inputType="number"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff"  />
-
-
-                <EditText
-                    android:id="@+id/profileFathersName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Father Name"
-                    android:textColor="#fff"
-                    android:inputType="text"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff"  />
-
-
-
-
-
-
-                <EditText
-                    android:id="@+id/profileEducation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Education"
-                    android:textColor="#fff"
                     android:inputType="textPersonName"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff"  />
-
-
-
-                <EditText
-                    android:id="@+id/profileDesignation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Designation"
-                    android:textColor="#fff"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff"  />
-
-
-
-                <EditText
-                    android:id="@+id/profileProfession"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:hint="Profession"
-                    android:textColor="#fff"
-                    android:inputType="text"
-                    android:paddingBottom="15dp"
-                    app:backgroundTint="#fff"
-                    android:textColorHint="#fff"  />
-
+                    android:padding="8dp"
+                    android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/profileDOB"
+                    android:id="@+id/selectDesignation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_designation"
+
+                    />
+
+
+                <Spinner
+                    android:id="@+id/editDesignation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="DOB"
-                    android:textSize="18sp"
-                    android:textColor="#fff"
-                    android:paddingBottom="15dp"
-                    android:paddingLeft="5dp"
-                    app:backgroundTint="#fff"
-                    android:layout_marginTop="2dp"
-                    android:textColorHint="#fff"  />
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/montserrat"
+
+                    />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/grey"
+                    android:checked="true"
+                    android:text="I agree to Terms and Condition" />
+
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/btn_background"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Update"
+                    android:textColor="#fff" />
 
                 <TextView
-                    android:id="@+id/textAddPic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="#fff"
-                    android:text="Add Profile Picture" />
+                    android:id="@+id/status1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_designation"
 
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="0sp"
-                    android:textColor="#fff"
-                    android:text="Add Profile Picture" />
-
-                <TextView
-                    android:id="@+id/timestamp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="0sp"
-                    android:textColor="#fff"
-                    android:text="Add Profile Picture" />
+                    />
 
                 <TextView
                     android:id="@+id/role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="0sp"
-                    android:textColor="#fff"
-                    android:text="Add Profile Picture" />
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_designation"
+
+                    />
+
                 <TextView
-                    android:id="@+id/status1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="0sp"
-                    android:textColor="#fff"
-                    android:text="Add Profile Picture" />
+                    android:id="@+id/timestamp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_designation"
 
-                <ImageView
-                    android:id="@+id/imageAddPic"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/profile" />
-
-
-
-                <Button
-                    android:id="@+id/submitBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="7dp"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/roudbutton"
-                    android:text="Save"
-                    android:textAllCaps="false"
-                    android:textColor="#fff"
                     />
 
 
             </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
 
-
-        </RelativeLayout>
-
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

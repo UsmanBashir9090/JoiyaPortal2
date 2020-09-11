@@ -1,3 +1,4 @@
+/*
 package coms.first.membership;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,14 +10,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,46 +39,91 @@ public class JoiyaMembershipForm extends AppCompatActivity {
     public static final String TAG = "TAG";
     public static final String TAG1 = "TAG";
     public boolean form = false;
-    EditText profileFullName, profileEmail, profilePhone, profileFathersName, profileCNIC, profileEducation, profileProfession, profileDesignation, profileAddress, profileCity;
+    EditText profileFullName, profileEmail, profilePhone, profileFathersName, profileCNIC, profileEducation, profileProfession, profileAddress, profileCity, profileTehsil,  profileDistrict, profileDivision;
+    String profileProvince, profileDesignation;
     ImageView profileImageView, profilePicImage;
     Button saveBtn;
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     FirebaseUser user;
-    StorageReference storageReference;
     DatabaseReference memberDB;
     String uid;
     ProgressBar saveProgressBar;
     private TextView mDisplayDate;
     TextView profilePicText;
-    private DatePickerDialog.OnDateSetListener onDateSetListener,mDateSetListener;
+    private DatePickerDialog.OnDateSetListener onDateSetListener, mDateSetListener;
+    Spinner spinnerProvince, spinnerDesignation;
+    ArrayAdapter<CharSequence> adapterProvince;
+    ArrayAdapter<CharSequence> adapterDesignation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joiya_membership_form);
         Toast.makeText(this, "Form opened.", Toast.LENGTH_SHORT).show();
+/*
+        final String[] designation = new String[1];
+        spinnerDesignation = (Spinner) findViewById(R.id.Designation);
+        adapterDesignation = ArrayAdapter.createFromResource(this, R.array.Designation, android.R.layout.simple_spinner_item);
+        adapterDesignation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDesignation.setAdapter(adapterDesignation);
+        spinnerDesignation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(i) + " selected.", Toast.LENGTH_LONG).show();
+                designation[0] = (String) adapterView.getItemAtPosition(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(0) + " selected.", Toast.LENGTH_LONG).show();
+                designation[0] = (String) adapterView.getItemAtPosition(0);
+            }
+        });
+        final String[] province = new String[1];
+        spinnerProvince = (Spinner) findViewById(R.id.Province);
+        adapterProvince = ArrayAdapter.createFromResource(this, R.array.Province, android.R.layout.simple_spinner_item);
+        adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProvince.setAdapter(adapterProvince);
+        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(i) + " selected.", Toast.LENGTH_LONG).show();
+                province[0] = (String) adapterView.getItemAtPosition(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(0) + " selected.", Toast.LENGTH_LONG).show();
+                province[0] = (String) adapterView.getItemAtPosition(0);
+            }
+        });
+
+        final String[] designation= {""};
+        final String[] province= {""};
 
         profilePicImage = findViewById(R.id.imageAddPic);
-        profilePicText = findViewById(R.id.textAddPic);
-        mDisplayDate = (TextView) findViewById(R.id.profileDOB);
-        profileProfession = findViewById(R.id.profileProfession);
-        profileFathersName = findViewById(R.id.profileFathersName);
-        profileCNIC = findViewById(R.id.profileCNIC);
-        profileEducation = findViewById(R.id.profileEducation);
-        profileDesignation = findViewById(R.id.profileDesignation);
-        profileAddress = findViewById(R.id.profileAddress);
-        profileCity = findViewById(R.id.profileCity);
-        profileFullName = findViewById(R.id.profileFullName);
-        profileEmail = findViewById(R.id.profileEmailAddress);
-        profilePhone = findViewById(R.id.profilePhoneNo);
-        saveBtn = findViewById(R.id.submit_h);
+     //   profilePicText = findViewById(R.id.textAddPic);
+        mDisplayDate = (TextView) findViewById(R.id.enterDOB);
+        profileProfession = findViewById(R.id.enterProfession);
+        profileFathersName = findViewById(R.id.enterFatherName);
+        profileCNIC = findViewById(R.id.enterCNIC);
+        profileEducation = findViewById(R.id.enterEducation);
+        profileDesignation = designation[0];
+        profileProvince = province[0];
+        profileAddress = findViewById(R.id.enterAddress);
+        profileCity = findViewById(R.id.enterCity);
+        profileFullName = findViewById(R.id.enterName);
+        profileEmail = findViewById(R.id.enterEmail);
+        profilePhone = findViewById(R.id.enterPhone);
+        profileTehsil = findViewById(R.id.enterTehsil);
+        profileDistrict = findViewById(R.id.enterDistrict);
+        profileDivision = findViewById(R.id.enterDivision);
+        saveBtn = findViewById(R.id.continueButton);
 
         fAuth = FirebaseAuth.getInstance();
 
 
-
-       mDisplayDate.setOnClickListener(new View.OnClickListener() {
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
@@ -84,28 +132,27 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog dialog = new DatePickerDialog(JoiyaMembershipForm.this, android.R.style.Theme_Black, mDateSetListener, year,month,day );
+                DatePickerDialog dialog = new DatePickerDialog(membershipForm.this, android.R.style.Theme_Black, mDateSetListener, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
 
-            mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    month = month + 1;
-                 //   Log.d(TAG, "onDateSet: mm/dd/yyy: " + day + "/" + month + "/" + year);
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                //   Log.d(TAG, "onDateSet: mm/dd/yyy: " + day + "/" + month + "/" + year);
 
-                    String date = month +"/" + day +"/" + year ;
-                    mDisplayDate.setText(date);
-                }
-            };
+                String date = month + "/" + day + "/" + year;
+                mDisplayDate.setText(date);
+            }
+        };
 
-/*
+*/
+    //    memberDB = FirebaseDatabase.getInstance().getReference("users");
 
-        memberDB= FirebaseDatabase.getInstance().getReference("users");
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+     /*   saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String name = profileFullName.getText().toString();
@@ -115,11 +162,14 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                 final String CNIC = profileCNIC.getText().toString().trim();
                 final String education = profileEducation.getText().toString().trim();
                 final String profession = profileProfession.getText().toString();
-                final String designation = profileDesignation.getText().toString().trim();
+                final String designation = profileDesignation;
+                final String province = profileProvince;
                 final String address = profileAddress.getText().toString().trim();
                 final String city = profileCity.getText().toString().trim();
                 final String dob = mDisplayDate.getText().toString();
-
+                final String tehsil = profileTehsil.getText().toString();
+                final String district = profileDistrict.getText().toString();
+                final String division = profileDivision.getText().toString();
 
                 if (TextUtils.isEmpty(fathersName)) {
                     profileFathersName.setError("Father's Name is required");
@@ -170,15 +220,11 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                     profileProfession.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(designation)) {
-                    profileDesignation.setError("Designation is required");
-                    profileDesignation.requestFocus();
-                    return;
-                }
+
                 if (TextUtils.isEmpty(address)) {
                     profileAddress.setError("Address is required");
-                profileAddress.requestFocus();
-                return;
+                    profileAddress.requestFocus();
+                    return;
                 }
                 if (TextUtils.isEmpty(city)) {
                     profileCity.setError("City is required");
@@ -187,52 +233,24 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                 }
 
 
-                user=FirebaseAuth.getInstance().getCurrentUser();
-                uid=user.getUid();
-                String role="user";
-                String status="Your Application is Pending";
-                String status1="pending";
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                uid = user.getUid();
+                String role = "user";
+                String status = "Your Application is Pending";
+                String status1 = "pending";
 
-                memberData placeorder = new memberData( name, email, phone, fathersName, profession, dob, designation, education, address, city, CNIC, role, getDateCurrentTimeZone(ServerValue.TIMESTAMP), status, status1);
+                memberData placeorder = new memberData(name, email, phone, fathersName, profession, dob, designation, education, address, city, CNIC, tehsil, district, division, province, role, getDateCurrentTimeZone(ServerValue.TIMESTAMP), status, status1);
                 memberDB.child(uid).setValue(placeorder);
 
                 Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(JoiyaMembershipForm.this, MainActivity.class);
+                Intent intent = new Intent(membershipForm.this, MainActivity.class);
                 startActivity(intent);
                 finish();
 
             }
         });
-*/
-      /*  StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profilePicImage);
-            }
-        });
-
-        profilePicImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, 1000);
-            }
-        });
-
-*/
-
-      /*  profilePicText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, 1000);
-            }
-        }); */
-
     }
-
-
+    }
     public  String getDateCurrentTimeZone(Map<String, String> timestamp) {
         try{
             Calendar calendar = Calendar.getInstance();
@@ -246,44 +264,5 @@ public class JoiyaMembershipForm extends AppCompatActivity {
         }
         return "";
     }
-
-  /*  @Override
-    protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000){
-            if(resultCode == Activity.RESULT_OK){
-
-                Uri imageUri = data.getData();
-                //profileImage.setImageURI(imageUri);
-                Toast.makeText(JoiyaMembershipForm.this, "Profile Picture added successfully.", Toast.LENGTH_SHORT).show();
-
-                uploadImageToFirebase(imageUri);
-            }
-        }
-    }
-
-    private void uploadImageToFirebase(Uri imageUri) {
-        // upload image to firebase storage
-        final StorageReference fileRef = storageReference.child("users/"+ fAuth.getCurrentUser().getUid()+"/profile.jpg");
-
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(JoiyaMembershipForm.this, "Image Uploaded.", Toast.LENGTH_SHORT).show();
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profileImageView);
-
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(JoiyaMembershipForm.this, "Failed.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-*/
 }
+*/

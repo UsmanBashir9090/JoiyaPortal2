@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, checking;
+    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, tehsil, district, division, province;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -55,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
         this.setTitle("Profile");
 
+        tehsil = findViewById(R.id.profileTeshil);
+        district = findViewById(R.id.profileDistrict);
+        division = findViewById(R.id.profileDivision);
+        province = findViewById(R.id.profileProvince);
         profileImage = findViewById(R.id.profilePicture);
         editInfo = findViewById(R.id.editInfo);
         Phone = findViewById(R.id.textPhone);
         fullName = findViewById(R.id.textName);
         Email = findViewById(R.id.textEmail);
-        fathersName = findViewById(R.id.profileFathersName);
         CNIC = findViewById(R.id.profileCNIC);
         address = findViewById(R.id.profileAddress);
         city = findViewById(R.id.profileCity);
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         timestamp = findViewById(R.id.timestamp);
         dob = findViewById(R.id.dob);
         resetPass = findViewById(R.id.resetpassword);
-        checking = findViewById(R.id.Check);
+
         //   profileImage = findViewById(R.id.profileImage);
         //   changeProfileImage = findViewById(R.id.changeProfile);
 
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (fAuth.getCurrentUser() == null) {
             startActivity(new Intent(getApplicationContext(), Login.class));
-            Toast.makeText(this, "Generating Card", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Log in again.", Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -117,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
                 status.setText(documentSnapshot.child("status1").getValue(String.class));
                 timestamp.setText(documentSnapshot.child("timestamp").getValue(String.class));
                 dob.setText(documentSnapshot.child("profileDob").getValue(String.class));
+                tehsil.setText(documentSnapshot.child("tehsil").getValue(String.class));
+                district.setText(documentSnapshot.child("district").getValue(String.class));
+                division.setText(documentSnapshot.child("division").getValue(String.class));
+                province.setText(documentSnapshot.child("province").getValue(String.class));
             }
 
             @Override
@@ -133,13 +140,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    checking.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), membershipForm.class);
-            startActivity(intent);
-        }
-    });
 
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menuUser:
 
-                startActivity(new Intent(this, generateCard.class));
+                startActivity(new Intent(this, activityFacebook.class));
 
                 break;
 

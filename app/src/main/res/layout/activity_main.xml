@@ -10,6 +10,7 @@
     android:layout_alignParentLeft="true"
     tools:context="coms.first.membership.MainActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,16 +31,10 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:text="Contact Information"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/Check"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="#FFFFFF" />
 
 
         </LinearLayout>
@@ -51,11 +46,19 @@
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profilePicture"
-                android:layout_width="104dp"
-                android:layout_height="104dp"
-                android:src="@drawable/profile"/>
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
+
+
+
             <TextView
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
@@ -64,6 +67,7 @@
                 android:textColor="#fff"
                 android:paddingLeft="20dp"
                 android:paddingRight="15dp"
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/textName"/>
         </LinearLayout>
 
@@ -81,6 +85,7 @@
             <TextView
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
@@ -103,6 +108,7 @@
             <TextView
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
@@ -126,12 +132,39 @@
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:paddingLeft="20dp"
-                android:paddingRight="15dp"
                 android:id="@+id/profileAddress"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+
+                android:paddingRight="5dp"
+                android:text=","
+/>
+
+            <TextView
+
+                android:id="@+id/profileProvince"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="15dp"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+
         </LinearLayout>
+
+
 
 
         <LinearLayout
@@ -152,18 +185,17 @@
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:paddingLeft="20dp"
+                android:fontFamily="@font/montserrat"
                 android:paddingRight="15dp"
                 android:id="@+id/profileCity"/>
         </LinearLayout>
-
-
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             >
 
@@ -171,8 +203,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textAlignment="center"
                 android:text="Profile Information"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -192,7 +225,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="10dp"
                 android:text="Father's Name:"
                 android:textColor="#fff"
@@ -203,7 +236,7 @@
                 android:id="@+id/fathersname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="5dp"
                 android:textColor="#fff"
                 android:textSize="15sp"
@@ -223,7 +256,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="10dp"
                 android:text="CNIC:"
                 android:textColor="#fff"
@@ -234,13 +267,96 @@
                 android:id="@+id/profileCNIC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="5dp"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingLeft="10dp"
+                android:text="Teshil:"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/profileTeshil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingLeft="5dp"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingLeft="10dp"
+                android:text="District:"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/profileDistrict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingLeft="5dp"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingLeft="10dp"
+                android:text="Division:"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/profileDivision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingLeft="5dp"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
 
 
         <LinearLayout
@@ -255,6 +371,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="Profession:"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -263,6 +380,7 @@
                 android:id="@+id/profileProfession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="5dp"
                 android:textColor="#fff"
                 android:textSize="15sp"
@@ -281,6 +399,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="Designation: "
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -289,7 +408,7 @@
                 android:id="@+id/profileDesignation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="5dp"
                 android:textColor="#fff"
                 android:textSize="15sp"
@@ -309,6 +428,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="Education:"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -317,6 +437,7 @@
                 android:id="@+id/profileEducation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="5dp"
                 android:textColor="#fff"
                 android:textSize="15sp"
@@ -335,6 +456,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="Date of Birth:"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -344,6 +466,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -361,6 +484,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="Registered At:"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -371,6 +495,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:textColor="#fff"
+                android:fontFamily="@font/montserrat"
                 android:textSize="15sp"
                 />
         </LinearLayout>
@@ -387,6 +512,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:text="Status:"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
@@ -397,6 +523,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:textColor="#ff0000"
+                android:fontFamily="@font/montserrat"
                 android:textSize="15sp"
                 />
         </LinearLayout>
@@ -416,6 +543,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:text="Edit Profile"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#fff"
                 android:textSize="16sp"
                 />
@@ -440,6 +568,8 @@
             android:gravity="center"
             android:text="Reset Password"
             android:textAlignment="center"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginBottom="15dp"
             android:textColor="#fff"
             android:textSize="16sp" />
 

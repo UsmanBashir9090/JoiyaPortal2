@@ -31,19 +31,33 @@
                 android:layout_gravity="center"
                 android:background="@drawable/logo2" />
 
+
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:text="Joiya Portal"
-                android:textFontWeight="700"
-                android:fontFamily="@font/js"
-                android:textSize="40sp"
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
-                android:textColor="#ffffff"
                 android:paddingBottom="15dp"
+                android:text="APJQI"
+                android:textColor="#ffffff"
                 android:textColorHint="@color/colorAccent"
-                android:layout_marginBottom="50dp"/>
+                android:textFontWeight="700"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="All Pakistan Joiya Qaumi Ittehad"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#ffffff"
+                android:textSize="14dp"
+                />
 
 
 

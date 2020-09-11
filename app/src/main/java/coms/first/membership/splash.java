@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class splash extends AppCompatActivity {
-    public static int SPLASH_TIME_OUT=4000;
+    public static int SPLASH_TIME_OUT=3000;
     FirebaseAuth mAuth;
     DatabaseReference userdb;
     FirebaseUser user;
@@ -43,14 +43,17 @@ public class splash extends AppCompatActivity {
                             user=FirebaseAuth.getInstance().getCurrentUser();
                             uid=user.getUid();
                             String role = dataSnapshot.child(uid).child("role").getValue(String.class);
-                            if (role.equals("admin")) {
-                                Intent intent = new Intent(splash.this, admin.class);
-                                startActivity(intent);
-                            }
-
-                            else {
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
+                            try {
+                                if (role.equals("admin")) {
+                                    Intent intent = new Intent(splash.this, admin.class);
+                                    startActivity(intent);
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finish();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                startActivity(new Intent(getApplicationContext(), Register.class));
                             }
                         }
                         @Override
