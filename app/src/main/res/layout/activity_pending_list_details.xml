@@ -418,17 +418,48 @@
                 />
         </LinearLayout>
 
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/buttonstyle"
+            android:onClick="buttonaccept"
+            android:text="Approve"
+            android:textColor="#fff" />
+
+    <Button
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#fff"
+        android:background="@drawable/buttonstyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="buttondecline"
+        android:text="Decline"/>
 
         <Button
             android:layout_marginTop="25dp"
             android:layout_marginBottom="20dp"
             android:textColor="#fff"
-            android:background="@drawable/buttonstyle"
+            android:background="@drawable/deletebuttonstyle"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="buttonaccept"
-            android:text="Approve"/>
+            android:onClick="buttondelete"
+            android:text="Delete"/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
 
 
     </LinearLayout>

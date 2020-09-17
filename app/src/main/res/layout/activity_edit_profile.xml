@@ -58,7 +58,6 @@
 
         <ScrollView
             android:layout_width="match_parent"
-
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -345,44 +344,11 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="40dp"
                     android:background="@drawable/btn_background"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Update"
                     android:textColor="#fff" />
-
-                <TextView
-                    android:id="@+id/status1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/select_designation"
-
-                    />
-
-                <TextView
-                    android:id="@+id/role"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/select_designation"
-
-                    />
-
-                <TextView
-                    android:id="@+id/timestamp"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/select_designation"
-
-                    />
 
 
             </LinearLayout>

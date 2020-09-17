@@ -89,6 +89,11 @@ public class Login extends AppCompatActivity {
                                         Intent intent = new Intent(Login.this, admin.class);
                                         startActivity(intent);
                                     }
+                                    if(role.equals("superAdmin")){
+                                        Toast.makeText(Login.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Login.this, superAdmin.class);
+                                        startActivity(intent);
+                                    }
 
                                     else {
                                         Toast.makeText(Login.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();

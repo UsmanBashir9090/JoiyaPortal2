@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -70,10 +72,12 @@ import java.util.Date;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+
+
 public class activityFacebook extends AppCompatActivity {
     TextView Name, Designation, Tehsil, District, Province, City;
     ImageView image;
-    Button btnShare, btnSS;
+    Button btnBack;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     FirebaseAuth fAuth;
@@ -83,6 +87,26 @@ public class activityFacebook extends AppCompatActivity {
     String userID;
     FirebaseUser user;
     DatabaseReference database;
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +122,7 @@ public class activityFacebook extends AppCompatActivity {
         City = findViewById(R.id.testCity);
         image = findViewById(R.id.testPicture);
 
-
+        btnBack = (Button) findViewById(R.id.btnBack);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -135,7 +159,13 @@ public class activityFacebook extends AppCompatActivity {
 
         //adding profile image to the imageView
 
-        StorageReference profileRef = storageReference.child("users/"+ fAuth.getCurrentUser().getUid()+"/profile.jpg");
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -165,14 +195,15 @@ public class activityFacebook extends AppCompatActivity {
 
     }
 
-    public void ScreenshotButton(View view){
+    public void ScreenshotButton(View view) {
 
         View view1 = getWindow().getDecorView().getRootView();
         view1.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(view1.getDrawingCache());
         view1.setDrawingCacheEnabled(false);
 
-        String filePath = Environment.getExternalStorageDirectory()+"/Download/"+ Calendar.getInstance().getTime().toString()+".jpg";
+
+        String filePath = Environment.getExternalStorageDirectory() + "/Download/" + Calendar.getInstance().getTime().toString() + ".jpg";
         File fileScreenshot = new File(filePath);
         FileOutputStream fileOutputStream = null;
         try {
@@ -186,24 +217,24 @@ public class activityFacebook extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         Uri uri = Uri.fromFile(fileScreenshot);
-        uriPath= uri;
+        uriPath = uri;
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileScreenshot));
         intent.setType("image/png");
-        startActivity(Intent.createChooser(intent,"Share Image Via"));
+        startActivity(Intent.createChooser(intent, "Share Image Via"));
 
 
     }
 
 
-    private void screenshot(){
+    private void screenshot() {
         Date date = new Date();
         CharSequence now = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", date);
         String filename = Environment.getExternalStorageDirectory() + "/Screenshot/" + now + ".JPG";
 
         View root = getWindow().getDecorView();
         root.setDrawingCacheEnabled(true);
-        Bitmap bitmap  = Bitmap.createBitmap(root.getDrawingCache());
+        Bitmap bitmap = Bitmap.createBitmap(root.getDrawingCache());
         Toast.makeText(this, "Creating Bitmap", Toast.LENGTH_SHORT).show();
         root.setDrawingCacheEnabled(false);
 
@@ -221,7 +252,7 @@ public class activityFacebook extends AppCompatActivity {
             uriPath = uri;
             Toast.makeText(this, "Starting intent", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri,"image/*");
+            intent.setDataAndType(uri, "image/*");
             startActivity(intent);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -232,7 +263,7 @@ public class activityFacebook extends AppCompatActivity {
     }
 
 
-    private void printKeyHash() {
+    /*private void printKeyHash() {
         try{
             PackageInfo info = getPackageManager().getPackageInfo("coms.first.membership",
                     PackageManager.GET_SIGNATURES);
@@ -245,4 +276,7 @@ public class activityFacebook extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+*/
+
 }
+

@@ -1,5 +1,6 @@
 package coms.first.membership;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,9 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class pending_list_details extends AppCompatActivity {
 
@@ -20,7 +25,7 @@ public class pending_list_details extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference database, ref;
     String id;
-
+    String adminName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,7 @@ public class pending_list_details extends AppCompatActivity {
         setContentView(R.layout.activity_pending_list_details);
 
 
-       // viewCard = findViewById(R.id.generateCard);
+        // viewCard = findViewById(R.id.generateCard);
         Phone = findViewById(R.id.textPhone);
         fullName = findViewById(R.id.textName);
         Email = findViewById(R.id.textEmail);
@@ -69,10 +74,25 @@ public class pending_list_details extends AppCompatActivity {
         dob.setText(getIntent().getStringExtra("dob"));
         CNIC.setText(getIntent().getStringExtra("cnic"));
         fathersName.setText(getIntent().getStringExtra("fathername"));
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        id = user.getUid();
+
+        database = FirebaseDatabase.getInstance().getReference().child("users").child(id);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
+                adminName = documentSnapshot.child("name").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
-
-
-
     public void buttonaccept(View view) {
         final String key = getIntent().getExtras().get("key").toString();
         ref = FirebaseDatabase.getInstance().getReference().child("users").child(key);
@@ -80,6 +100,21 @@ public class pending_list_details extends AppCompatActivity {
         ref.child("status").setValue("You are now a Member");
         Toast.makeText(getApplicationContext(), "Application Approved", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void buttondecline(View view){
+        final String key = getIntent().getExtras().get("key").toString();
+        ref = FirebaseDatabase.getInstance().getReference().child("users").child(key);
+        ref.child("status1").setValue("Declined");
+        ref.child("status").setValue("Application was declined by " + adminName);
+    }
+
+    //Need to add deleting user from authetication function
+    public void buttondelete(View view){
+        final String key = getIntent().getExtras().get("key").toString();
+        ref = FirebaseDatabase.getInstance().getReference().child("users").child(key);
+        ref.removeValue();
+
     }
 
 }

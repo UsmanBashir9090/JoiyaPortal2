@@ -1,5 +1,6 @@
 package coms.first.membership;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,9 +15,14 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -28,7 +34,9 @@ public class pending_list extends AppCompatActivity {
     String itemKey;
     FirebaseStorage fstorage;
     StorageReference storageReference;
-    FirebaseDatabase fAuth;
+    FirebaseUser user;
+    String id;
+    String province;
 
 
 
@@ -38,9 +46,28 @@ public class pending_list extends AppCompatActivity {
         setContentView(R.layout.activity_pending_list);
         this.setTitle("Pending Requests");
 
+        //Extract admin's province
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        id = user.getUid();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("users").child(id);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
+                province = documentSnapshot.child("province").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         lv=(ListView) findViewById(R.id.LV);
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-        Query query = databaseReference.orderByChild("status1").equalTo("pending");
+
+
+        Query query = databaseReference.orderByChild("status_province").equalTo("pending_" + province);
 
         FirebaseListOptions<memberData> options= new FirebaseListOptions.Builder<memberData>()
                 .setLayout(R.layout.allmemberdata)

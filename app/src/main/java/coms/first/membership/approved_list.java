@@ -65,27 +65,27 @@ public class approved_list extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position,
                                     long id) {
-                Intent Deletepdate=  new Intent(approved_list.this, approved_list_details.class);
+                Intent DeleteUpdate=  new Intent(approved_list.this, approved_list_details.class);
                 memberData user= (memberData) adapterView.getItemAtPosition(position);
                 DatabaseReference itemRef = adapter2.getRef(position);
-                String itemKe = itemRef.getKey();
-                Deletepdate.putExtra("email", user.getEmail());
-                Deletepdate.putExtra("name", user.getName());
-                Deletepdate.putExtra("key", itemKe);
-                Deletepdate.putExtra("phone", user.getPhone());
-                Deletepdate.putExtra("address", user.getAddress());
-                Deletepdate.putExtra("city", user.getCity());
-                Deletepdate.putExtra("fathername", user.getFatherName());
-                Deletepdate.putExtra("cnic", user.getCNIC());
-                Deletepdate.putExtra("designation", user.getDesignation());
-                Deletepdate.putExtra("dob", user.getProfileDob());
-                Deletepdate.putExtra("status", user.getStatus1());
-                Deletepdate.putExtra("education", user.getEducation());
-                Deletepdate.putExtra("profession", user.getProfession());
-                Deletepdate.putExtra("timestamp", user.getTimestamp());
+                String itemKey = itemRef.getKey();
+                DeleteUpdate.putExtra("email", user.getEmail());
+                DeleteUpdate.putExtra("name", user.getName());
+                DeleteUpdate.putExtra("key", itemKey);
+                DeleteUpdate.putExtra("phone", user.getPhone());
+                DeleteUpdate.putExtra("address", user.getAddress());
+                DeleteUpdate.putExtra("city", user.getCity());
+                DeleteUpdate.putExtra("fathername", user.getFatherName());
+                DeleteUpdate.putExtra("cnic", user.getCNIC());
+                DeleteUpdate.putExtra("designation", user.getDesignation());
+                DeleteUpdate.putExtra("dob", user.getProfileDob());
+                DeleteUpdate.putExtra("status", user.getStatus1());
+                DeleteUpdate.putExtra("education", user.getEducation());
+                DeleteUpdate.putExtra("profession", user.getProfession());
+                DeleteUpdate.putExtra("timestamp", user.getTimestamp());
 
 
-                startActivity(Deletepdate);
+                startActivity(DeleteUpdate);
                 finish();
             }
         });

@@ -53,8 +53,8 @@ import java.util.TimeZone;
 
 public class EditProfile extends AppCompatActivity {
     public static final String TAG1 = "TAG";
-    TextView fullName, email, phone, fathersName, CNIC, address, city, profession, education,role, resetPass, status,  dob, timeStamp, status1, tehsil, district, division;
-    String designation, province;
+    TextView fullName, email, phone, fathersName, CNIC, address, city, profession, education, resetPass,  dob, tehsil, district, division;
+    String timeStamp, role, shortStatus, longStatus;
     TextView textPic;
     ImageView profileImageView, imagePic;
     Button saveBtn;
@@ -64,7 +64,8 @@ public class EditProfile extends AppCompatActivity {
     FirebaseUser user;
     StorageReference storageReference;
     FirebaseStorage storage;
-    Spinner spinnerProvince, spinnerDesignation;
+    Spinner spinnerProvince;
+    Spinner spinnerDesignation;
     ArrayAdapter<CharSequence> adapterProvince;
     ArrayAdapter<CharSequence> adapterDesignation;
 
@@ -84,22 +85,21 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
 
-        spinnerDesignation = (Spinner) findViewById(R.id.editDesignation);
-        adapterDesignation = ArrayAdapter.createFromResource(this, R.array.Designation, android.R.layout.simple_spinner_item);
-        adapterDesignation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDesignation.setAdapter(adapterDesignation);
-
         spinnerProvince = (Spinner) findViewById(R.id.editProvince);
         adapterProvince = ArrayAdapter.createFromResource(this, R.array.Province, android.R.layout.simple_spinner_item);
         adapterProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProvince.setAdapter(adapterProvince);
 
 
+        spinnerDesignation = (Spinner) findViewById(R.id.editDesignation);
+        adapterDesignation = ArrayAdapter.createFromResource(this, R.array.Designation, android.R.layout.simple_spinner_item);
+        adapterDesignation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDesignation.setAdapter(adapterDesignation);
 
 
         spinnerDesignation = (Spinner) findViewById(R.id.editDesignation);
         spinnerProvince = (Spinner) findViewById(R.id.editProvince);
-        Log.d(TAG2,"province is " + province);
+
         imagePic = findViewById(R.id.editImage);
         saveBtn = findViewById(R.id.saveButton);
         phone = findViewById(R.id.editPhone);
@@ -117,10 +117,6 @@ public class EditProfile extends AppCompatActivity {
         education = findViewById(R.id.editEducation);
         // dob = findViewById(R.id.profileDOB);
         mDisplayDate = (TextView) findViewById(R.id.editDOB);
-        status = findViewById(R.id.status);
-        status1 = findViewById(R.id.status1);
-        role = findViewById(R.id.role);
-        timeStamp = findViewById(R.id.timestamp);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -154,9 +150,10 @@ public class EditProfile extends AppCompatActivity {
                 tehsil.setText(documentSnapshot.child("tehsil").getValue(String.class));
                 district.setText(documentSnapshot.child("district").getValue(String.class));
                 division.setText(documentSnapshot.child("division").getValue(String.class));
-                timeStamp.setText(documentSnapshot.child("timestamp").getValue(String.class));
-                role.setText(documentSnapshot.child("role").getValue(String.class));
-                status1.setText(documentSnapshot.child("status1").getValue(String.class));
+                timeStamp = (documentSnapshot.child("timestamp").getValue(String.class));
+                role = (documentSnapshot.child("role").getValue(String.class));
+                shortStatus = (documentSnapshot.child("status1").getValue(String.class));
+                longStatus = (documentSnapshot.child("status").getValue(String.class));
             }
 
             @Override
@@ -213,15 +210,19 @@ public class EditProfile extends AppCompatActivity {
                 final String Cnic = CNIC.getText().toString().trim();
                 final String Education = education.getText().toString().trim();
                 final String Profession = profession.getText().toString();
-                final String Designation = spinnerDesignation.getSelectedItem().toString();
-                final String Province = spinnerProvince.getSelectedItem().toString();
+                final String Designation = (String) spinnerDesignation.getSelectedItem().toString();
+                final String Province = (String) spinnerProvince.getSelectedItem().toString();
                 final String Address = address.getText().toString().trim();
                 final String City = city.getText().toString().trim();
                 final String Dob = mDisplayDate.getText().toString();
                 final String Tehsil = tehsil.getText().toString();
                 final String District = district.getText().toString();
                 final String Division = division.getText().toString();
-                final String time = timeStamp.getText().toString();
+                final String time = timeStamp;
+                final String Role = role;
+                final String shortstatus = shortStatus;
+                final String longstatus = longStatus;
+
 
                 if (TextUtils.isEmpty(FathersName)) {
                     fathersName.setError("Father's Name is required");
@@ -302,17 +303,21 @@ public class EditProfile extends AppCompatActivity {
 
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 uid = user.getUid();
-                String role = "user";
-                String status = "Your Application is Pending";
-                String status1 = "pending";
 
-                Log.d(TAG2,"province is " + province);
-                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, role, time, status, status1);
+                String status_province = shortstatus + "_" + Province;
+                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, Role, time, shortstatus, longstatus, status_province);
                 memberDB.child(uid).setValue(placeorder);
                 Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EditProfile.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                 if(Role=="admin"|| Role=="superAdmin"){
+                    Intent intent = new Intent(EditProfile.this, adminProfile.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                     Intent intent = new Intent(EditProfile.this, MainActivity.class);
+                     startActivity(intent);
+                     finish();
+                 }
+
 
             }
         });

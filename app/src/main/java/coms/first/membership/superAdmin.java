@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class admin extends AppCompatActivity {
+public class superAdmin extends AppCompatActivity {
     TextView editInfo, resetPass, userName;
     FirebaseUser user;
     FirebaseAuth fAuth;
@@ -38,7 +38,7 @@ public class admin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_super_admin);
 
         userName = findViewById(R.id.userName);
 

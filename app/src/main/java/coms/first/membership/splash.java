@@ -47,7 +47,11 @@ public class splash extends AppCompatActivity {
                                 if (role.equals("admin")) {
                                     Intent intent = new Intent(splash.this, admin.class);
                                     startActivity(intent);
-                                } else {
+                                } if (role.equals("superAdmin")) {
+                                    Intent intent = new Intent(splash.this, superAdmin.class);
+                                    startActivity(intent);
+                                }
+                                else {
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     finish();
                                 }

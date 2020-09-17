@@ -35,27 +35,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class adminProfile extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextView fullName, status_Province, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, tehsil, district, division, province;
+    TextView fullName, Email, Phone, fathersName, CNIC, address, city, profession, designation, education, resetPass, status, timestamp, dob, editInfo, tehsil, district, division, province;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
-    Button changeProfileImage ;
+    Button backBtn ;
     FirebaseUser user;
     ImageView profileImage;
     StorageReference storageReference;
     DatabaseReference database;
-    String status_province;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin_profile);
 
         this.setTitle("Profile");
 
-        status_Province = findViewById(R.id.status_province);
+        backBtn = findViewById(R.id.backBtn);
         tehsil = findViewById(R.id.profileTeshil);
         district = findViewById(R.id.profileDistrict);
         division = findViewById(R.id.profileDivision);
@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 district.setText(documentSnapshot.child("district").getValue(String.class));
                 division.setText(documentSnapshot.child("division").getValue(String.class));
                 province.setText(documentSnapshot.child("province").getValue(String.class));
-                status_province = documentSnapshot.child("status1").getValue(String.class) + "_" + documentSnapshot.child("province").getValue(String.class);
-                status_Province.setText(status_province);
             }
 
             @Override
@@ -135,10 +133,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), admin.class));
+            }
+        });
+
         editInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditProfile.class);
+                Intent intent = new Intent(adminProfile.this, EditProfile.class);
                 startActivity(intent);
             }
         });
@@ -163,12 +168,12 @@ public class MainActivity extends AppCompatActivity {
                         user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(adminProfile.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MainActivity.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(adminProfile.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -235,10 +240,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
 
-            }
-
-            return true;
         }
+
+        return true;
+    }
 
 
 
@@ -251,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
         }  */
 
-    }
+}
 
 
 

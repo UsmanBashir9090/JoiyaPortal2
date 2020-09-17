@@ -2,12 +2,15 @@ package coms.first.membership;
 
 
 public class memberData {
-    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status, status1, tehsil, district,division, province;
+    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status, status1, tehsil, district,division, province, status_province;
      ;
 
 
+     public memberData(){
 
-    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String tehsil, String district, String division, String province,  String role, String timestamp, String status, String status1) {
+     }
+
+    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String tehsil, String district, String division, String province,  String role, String timestamp, String status, String status1, String status_province) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -26,7 +29,8 @@ public class memberData {
         this.tehsil=tehsil;
         this.division=division;
         this.district=district;
-
+        this.province = province;
+        this.status_province = status_province;
     }
 
     public String getName() {return name;}
@@ -43,6 +47,7 @@ public class memberData {
     public String getDivision(){return division;}
     public String getDistrict(){return district;}
     public String getProvince() {return province;}
+    public String getStatus_province(){return status_province;}
 
     public String getProfileDob() {
         return profileDob;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Joiya Portal</string>
+    <string name="app_name">APJQI</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -16,6 +16,7 @@
 
     <string-array name="Province">
         <item>Sindh</item>
+        <item>Punjab</item>
         <item>Balochistan</item>
         <item>Khyber Pakhtunkhwa</item>
         <item>Islamabad Capital Territory</item>
@@ -26,7 +27,7 @@
 
     <string-array name="Designation">
         <item>Member</item>
-        <item>Join Secretary</item>
+        <item>Joint Secretary</item>
         <item>Press Secretary</item>
         <item>Vice President</item>
         <item>General Secretary</item>

@@ -147,25 +147,12 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        Log.d("KEY", "THIS IS A TEST MESSAGE HELLO THHERE");
-        printKeyHash();
+
     }
 
-    private void printKeyHash() {
-        try{
-            PackageInfo info = getPackageManager().getPackageInfo("coms.first.membership",
-                    PackageManager.GET_SIGNATURES);
-            for(Signature signature: info.signatures){
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+
     }
 
 
 
 
-}

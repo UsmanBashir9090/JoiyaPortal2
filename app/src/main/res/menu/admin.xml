@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+
+        android:id="@+id/generateCard"
+
+        android:title="Generate ID Card" />
+    <item
+        android:id="@+id/viewProfile"
+        android:title="View Profile" />
     <item
         android:id="@+id/menuLogout"
         android:title="Logout"
-
-        />
-
-
-
-    <item
-
-        android:title="Admin"
 
         />
 
