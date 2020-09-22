@@ -34,6 +34,7 @@ public class superAdmin extends AppCompatActivity {
     FirebaseAuth fAuth;
     DatabaseReference database;
     String userId;
+    String province;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,73 +50,83 @@ public class superAdmin extends AppCompatActivity {
         plcord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startplcord = new Intent(getApplicationContext(), pending_NonMembers.class);
-                startActivity(startplcord);
-            }
-        });
+                database.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        province = dataSnapshot.child("province").getValue(String.class);
+                        Intent startplcord = new Intent(getApplicationContext(), pending_list.class);
+                        startplcord.putExtra("province", province);
+                        startActivity(startplcord);
+                    }
 
-        Button cord = (Button) findViewById(R.id.dispatched_orders);
-        cord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            });
+                Button cord = (Button) findViewById(R.id.dispatched_orders);
+                cord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent startplcord = new Intent(getApplicationContext(), approved_list.class);
+                        startActivity(startplcord);
+                    }
+                });
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                userId = user.getUid();
+
+                database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+
+                database.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
+                        userName.setText(documentSnapshot.child("name").getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
             @Override
-            public void onClick(View view) {
-                Intent startplcord = new Intent(getApplicationContext(), approved_list.class);
-                startActivity(startplcord);
-            }
-        });
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userId= user.getUid();
+            public boolean onCreateOptionsMenu(Menu menu) {
 
-        database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
-
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
-                userName.setText(documentSnapshot.child("name").getValue(String.class));
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.admin, menu);
+                return true;
             }
+
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public boolean onOptionsItemSelected(MenuItem item) {
 
+                switch (item.getItemId()) {
+                    case R.id.menuLogout:
+
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        startActivity(new Intent(this, Login.class));
+
+                        break;
+                    case R.id.generateCard:
+
+                        startActivity(new Intent(this, activityFacebook.class));
+                        break;
+
+                    case R.id.viewProfile:
+
+                        startActivity(new Intent(this, adminProfile.class));
+                        break;
+
+
+                }
+
+
+                return true;
             }
-        });
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.admin, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected( MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.menuLogout:
-
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(this, Login.class) );
-
-                break;
-            case R.id.generateCard:
-
-                startActivity(new Intent(this, activityFacebook.class));
-                break;
-
-            case R.id.viewProfile:
-
-                startActivity(new Intent(this, adminProfile.class));
-                break;
-
 
         }
-
-
-        return true;
-    }
-
-}

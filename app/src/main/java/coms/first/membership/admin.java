@@ -36,6 +36,7 @@ public class admin extends AppCompatActivity {
     FirebaseAuth fAuth;
     DatabaseReference database;
     String userId;
+    String province;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +45,31 @@ public class admin extends AppCompatActivity {
 
         userName = findViewById(R.id.userName);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userId= user.getUid();
 
+        database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
         fAuth = FirebaseAuth.getInstance();
 
         Button plcord = (Button) findViewById(R.id.orders);
         plcord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startplcord = new Intent(getApplicationContext(), pending_list.class);
-                startActivity(startplcord);
+                database.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        province = dataSnapshot.child("province").getValue(String.class);
+                        Intent startplcord = new Intent(getApplicationContext(), pending_list.class);
+                        startplcord.putExtra("province", province);
+                        startActivity(startplcord);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
@@ -64,10 +81,7 @@ public class admin extends AppCompatActivity {
                 startActivity(startplcord);
             }
         });
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userId= user.getUid();
 
-        database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
         database.addValueEventListener(new ValueEventListener() {
             @Override

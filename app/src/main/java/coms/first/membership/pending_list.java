@@ -59,24 +59,15 @@ public class pending_list extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                province = snapshot.child("province").getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+       Intent startplcord = getIntent();
+       province = startplcord.getStringExtra("province");
 
 
         lv=(ListView) findViewById(R.id.LV);
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-        Query query = databaseReference.orderByChild("status_province").equalTo("pending_Sindh");
+        Query query = databaseReference.orderByChild("status_province").equalTo("pending_" + province);
 
         Log.d(TAG, "Province is " + province);
 
@@ -84,8 +75,6 @@ public class pending_list extends AppCompatActivity {
                 .setLayout(R.layout.allmemberdata)
                 .setQuery(query, memberData.class)
                 .build();
-
-
 
 
         adapter2= new FirebaseListAdapter(options) {

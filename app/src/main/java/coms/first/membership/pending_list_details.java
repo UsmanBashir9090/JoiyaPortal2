@@ -99,6 +99,8 @@ public class pending_list_details extends AppCompatActivity {
             }
         });
     }
+
+
     public void buttonaccept(View view) {
         final String key = getIntent().getExtras().get("key").toString();
         ref = FirebaseDatabase.getInstance().getReference().child("users").child(key);
@@ -162,7 +164,8 @@ public class pending_list_details extends AppCompatActivity {
         ref.child("status").setValue("Application was declined by " + adminName);
     }
 
-    //Need to add deleting user from authetication function
+
+    //Need to add deleting user from authentication function
     public void buttondelete(View view){
 
         final String key = getIntent().getExtras().get("key").toString();

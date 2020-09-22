@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".pending_NonMembers"></activity>
+        <activity android:name=".presApproved_List"></activity>
+        <activity android:name=".pending_NonMembers" />
         <activity android:name=".superAdmin" />
         <activity android:name=".viewUsers" />
         <activity android:name=".adminProfile" />
