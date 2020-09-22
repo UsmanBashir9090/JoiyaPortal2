@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".superAdmin"></activity>
+        <activity android:name=".pending_NonMembers"></activity>
+        <activity android:name=".superAdmin" />
         <activity android:name=".viewUsers" />
         <activity android:name=".adminProfile" />
         <activity android:name=".sharingID" />

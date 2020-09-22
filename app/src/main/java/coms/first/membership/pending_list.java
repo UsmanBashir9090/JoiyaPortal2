@@ -76,7 +76,7 @@ public class pending_list extends AppCompatActivity {
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-        Query query = databaseReference.orderByChild("status_province").equalTo("pending_" + province);
+        Query query = databaseReference.orderByChild("status_province").equalTo("pending_Sindh");
 
         Log.d(TAG, "Province is " + province);
 
@@ -140,6 +140,7 @@ public class pending_list extends AppCompatActivity {
                 Deletepdate.putExtra("education", user.getEducation());
                 Deletepdate.putExtra("profession", user.getProfession());
                 Deletepdate.putExtra("timestamp", user.getTimestamp());
+                Deletepdate.putExtra("province", user.getProvince());
 
 
                 startActivity(Deletepdate);

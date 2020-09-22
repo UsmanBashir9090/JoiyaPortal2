@@ -1,39 +1,52 @@
 package coms.first.membership;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-public class approved_list extends AppCompatActivity {
+public class pending_NonMembers extends AppCompatActivity {
+    public static final String TAG = "TAG";
+    public static final String TAG1 = "TAG1";
     ListView lv;
     FirebaseListAdapter adapter2;
-    DatabaseReference databaseReference, db;
+    DatabaseReference databaseReference, database;
     String itemKey;
-
-
+    FirebaseStorage fstorage;
+    FirebaseAuth fAuth;
+    StorageReference storageReference;
+    FirebaseUser user;
+    String userId;
+    String province;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_approved_list);
-        this.setTitle("Approved Requests");
+        setContentView(R.layout.activity_pending__non_members);
+        this.setTitle("Pending Requests");
 
         lv=(ListView) findViewById(R.id.LV);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-
-        Query query = databaseReference.orderByChild("status_province").equalTo("Approved_Sindh");
+        Query query = databaseReference.orderByChild("status_member").equalTo("Approved_0");
 
         FirebaseListOptions<memberData> options= new FirebaseListOptions.Builder<memberData>()
                 .setLayout(R.layout.allmemberdata)
@@ -66,27 +79,28 @@ public class approved_list extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position,
                                     long id) {
-                Intent DeleteUpdate=  new Intent(approved_list.this, approved_list_details.class);
+                Intent Deletepdate=  new Intent(pending_NonMembers.this, pending_list_details.class);
                 memberData user= (memberData) adapterView.getItemAtPosition(position);
                 DatabaseReference itemRef = adapter2.getRef(position);
-                String itemKey = itemRef.getKey();
-                DeleteUpdate.putExtra("email", user.getEmail());
-                DeleteUpdate.putExtra("name", user.getName());
-                DeleteUpdate.putExtra("key", itemKey);
-                DeleteUpdate.putExtra("phone", user.getPhone());
-                DeleteUpdate.putExtra("address", user.getAddress());
-                DeleteUpdate.putExtra("city", user.getCity());
-                DeleteUpdate.putExtra("fathername", user.getFatherName());
-                DeleteUpdate.putExtra("cnic", user.getCNIC());
-                DeleteUpdate.putExtra("designation", user.getDesignation());
-                DeleteUpdate.putExtra("dob", user.getProfileDob());
-                DeleteUpdate.putExtra("status", user.getStatus1());
-                DeleteUpdate.putExtra("education", user.getEducation());
-                DeleteUpdate.putExtra("profession", user.getProfession());
-                DeleteUpdate.putExtra("timestamp", user.getTimestamp());
+                String itemKe = itemRef.getKey();
+                Deletepdate.putExtra("email", user.getEmail());
+                Deletepdate.putExtra("name", user.getName());
+                Deletepdate.putExtra("key", itemKe);
+                Deletepdate.putExtra("phone", user.getPhone());
+                Deletepdate.putExtra("address", user.getAddress());
+                Deletepdate.putExtra("city", user.getCity());
+                Deletepdate.putExtra("fathername", user.getFatherName());
+                Deletepdate.putExtra("cnic", user.getCNIC());
+                Deletepdate.putExtra("designation", user.getDesignation());
+                Deletepdate.putExtra("dob", user.getProfileDob());
+                Deletepdate.putExtra("status", user.getStatus1());
+                Deletepdate.putExtra("education", user.getEducation());
+                Deletepdate.putExtra("profession", user.getProfession());
+                Deletepdate.putExtra("timestamp", user.getTimestamp());
+                Deletepdate.putExtra("province", user.getProvince());
 
 
-                startActivity(DeleteUpdate);
+                startActivity(Deletepdate);
                 finish();
             }
         });
@@ -104,7 +118,5 @@ public class approved_list extends AppCompatActivity {
         super.onStop();
         adapter2.stopListening();
     }
-
-
 
 }

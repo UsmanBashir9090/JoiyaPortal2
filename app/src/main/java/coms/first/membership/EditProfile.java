@@ -50,11 +50,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
-
+// CUT OUT CHOOSING YOUR DESIGNATION FROM THIS ACTIVITY. CREATE ADMIN EDITABLE ACTIVITY FOR EACH USER INCASE OF CHANGING DESIGNATION.
 public class EditProfile extends AppCompatActivity {
     public static final String TAG1 = "TAG";
     TextView fullName, email, phone, fathersName, CNIC, address, city, profession, education, resetPass,  dob, tehsil, district, division;
-    String timeStamp, role, shortStatus, longStatus;
+    String timeStamp, role, shortStatus, longStatus, prov_approval, pres_approval, prov_app_name;
     TextView textPic;
     ImageView profileImageView, imagePic;
     Button saveBtn;
@@ -154,6 +154,9 @@ public class EditProfile extends AppCompatActivity {
                 role = (documentSnapshot.child("role").getValue(String.class));
                 shortStatus = (documentSnapshot.child("status1").getValue(String.class));
                 longStatus = (documentSnapshot.child("status").getValue(String.class));
+                prov_approval = (documentSnapshot.child("provincial_approval").getValue(String.class));
+                pres_approval = (documentSnapshot.child("presidient_approval").getValue(String.class));
+                prov_app_name = documentSnapshot.child("prov_app_name").getValue(String.class);
             }
 
             @Override
@@ -222,7 +225,17 @@ public class EditProfile extends AppCompatActivity {
                 final String Role = role;
                 final String shortstatus = shortStatus;
                 final String longstatus = longStatus;
-
+                final String Prov_app_name = prov_app_name;
+                final String member;
+                final String Pres_approval;
+                final String Prov_approval = prov_approval;
+                if(Designation == "Member") {
+                    Pres_approval = "Approved";
+                    member = "1";
+                } else{
+                    Pres_approval="pending";
+                    member = "0";
+                }
                 if (TextUtils.isEmpty(FathersName)) {
                     fathersName.setError("Father's Name is required");
                     fathersName.requestFocus();
@@ -304,8 +317,9 @@ public class EditProfile extends AppCompatActivity {
                 uid = user.getUid();
 
                 String status_province = shortstatus + "_" + Province;
+                String status_member = Prov_approval + "_" + member;
                 Log.d(TAG, Province);
-                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, Role, time, longstatus, shortstatus,  status_province);
+                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, Role, time, longstatus, shortstatus,  status_province, status_member, Prov_approval, Pres_approval, Prov_app_name);
                 memberDB.child(uid).setValue(placeorder);
                 Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();
                  if(Role=="admin"|| Role=="superAdmin"){

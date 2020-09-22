@@ -2,7 +2,7 @@ package coms.first.membership;
 
 
 public class memberData {
-    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status, status1, tehsil, district,division, province, status_province;
+    public String name, email,status_member, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status, status1, tehsil, district,division, province, status_province, provincial_approval, president_approval, prov_app_name;
      ;
 
 
@@ -10,7 +10,7 @@ public class memberData {
 
      }
 
-    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String tehsil, String district, String division, String province,  String role, String timestamp, String status, String status1, String status_province) {
+    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String tehsil, String district, String division, String province, String role, String timestamp, String status, String status1, String status_province, String status_member, String provincial_approval, String prov_app_name, String president_approval) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -31,10 +31,18 @@ public class memberData {
         this.district=district;
         this.province = province;
         this.status_province = status_province;
-    }
+        this.status_member = status_member;
+        this.provincial_approval = provincial_approval;
+        this.president_approval = president_approval;
+        this.prov_app_name = prov_app_name;
+     }
 
     public void setProvince(String province){this.province = province;}
 
+    public String getProv_app_name() {return prov_app_name;}
+    public String getProvincial_approval() {return provincial_approval;}
+    public String getPresident_approval() {return president_approval;}
+    public String getStatus_member() {return status_member;}
     public String getName() {return name;}
     public String getEmail() {return email;}
     public String getPhone() {return phone;}

@@ -49,7 +49,7 @@ public class superAdmin extends AppCompatActivity {
         plcord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startplcord = new Intent(getApplicationContext(), pending_list.class);
+                Intent startplcord = new Intent(getApplicationContext(), pending_NonMembers.class);
                 startActivity(startplcord);
             }
         });

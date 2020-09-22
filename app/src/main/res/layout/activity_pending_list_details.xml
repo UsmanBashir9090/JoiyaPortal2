@@ -270,12 +270,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
+                android:text="Province:"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:fontFamily="@font/montserrat_bold"
+                android:id="@+id/province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
                 android:text="Designation: "
                 android:textColor="#fff"
                 android:textSize="15sp"
                 />
 
             <TextView
+                android:fontFamily="@font/montserrat_bold"
                 android:id="@+id/profileDesignation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
