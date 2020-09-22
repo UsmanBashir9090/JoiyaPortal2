@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="APJQI"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="All Pakistan Joiya Qaumi Ittehad"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SmallSp" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="390dp"
+        android:layout_height="599dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="#FFFCFC"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="16dp"
+        app:cardMaxElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="620dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Joiya Membership Form"
+                    android:textSize="20dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/view2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="12dp"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9"
+                    app:cardCornerRadius="40dp">
+
+                    <ImageView
+                        android:id="@+id/imagePic"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/icon" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="8dp"
+                    android:text="Add Profile Picture"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/enterName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@color/black"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Full name"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Contact number"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Email address"
+                    android:inputType="textEmailAddress"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterFatherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Father's name"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Date Of Birth"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterEducation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Education"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterProfession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Profession"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Home Address"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterCNIC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Enter CNIC"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterTehsil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Tehsil"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="District"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/enterDivision"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Division"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/selectProvince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_province"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/Province"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/montserrat"
+
+                    />
+
+
+                <EditText
+                    android:id="@+id/enterCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/edt_back"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="City"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/selectDesignation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/select_designation"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/Designation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/montserrat"
+
+                    />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/grey"
+                    android:checked="true"
+                    android:text="I agree to Terms and Condition" />
+
+                <Button
+                    android:id="@+id/continueButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/btn_background"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Continue"
+                    android:textColor="#fff" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
