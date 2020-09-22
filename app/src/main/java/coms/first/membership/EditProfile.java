@@ -223,7 +223,6 @@ public class EditProfile extends AppCompatActivity {
                 final String shortstatus = shortStatus;
                 final String longstatus = longStatus;
 
-
                 if (TextUtils.isEmpty(FathersName)) {
                     fathersName.setError("Father's Name is required");
                     fathersName.requestFocus();
@@ -305,7 +304,8 @@ public class EditProfile extends AppCompatActivity {
                 uid = user.getUid();
 
                 String status_province = shortstatus + "_" + Province;
-                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, Role, time, shortstatus, longstatus, status_province);
+                Log.d(TAG, Province);
+                memberData placeorder = new memberData(Name, Email, Phone, FathersName, Profession, Dob, Designation, Education, Address, City, Cnic, Tehsil, District, Division, Province, Role, time, longstatus, shortstatus,  status_province);
                 memberDB.child(uid).setValue(placeorder);
                 Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();
                  if(Role=="admin"|| Role=="superAdmin"){

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class admin extends AppCompatActivity {
+    public static final String TAG = "TAG";
     TextView editInfo, resetPass, userName;
     FirebaseUser user;
     FirebaseAuth fAuth;
@@ -71,6 +73,8 @@ public class admin extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
                 userName.setText(documentSnapshot.child("name").getValue(String.class));
+                final String name = userName.getText().toString();
+
             }
 
             @Override
@@ -78,6 +82,7 @@ public class admin extends AppCompatActivity {
 
             }
         });
+
 
     }
 

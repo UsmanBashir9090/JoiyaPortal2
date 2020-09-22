@@ -6,15 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,14 +32,17 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class pending_list extends AppCompatActivity {
+    public static final String TAG = "TAG";
+    public static final String TAG1 = "TAG1";
     ListView lv;
     FirebaseListAdapter adapter2;
-    DatabaseReference databaseReference, db;
+    DatabaseReference databaseReference, database;
     String itemKey;
     FirebaseStorage fstorage;
+    FirebaseAuth fAuth;
     StorageReference storageReference;
     FirebaseUser user;
-    String id;
+    String userId;
     String province;
 
 
@@ -46,14 +53,16 @@ public class pending_list extends AppCompatActivity {
         setContentView(R.layout.activity_pending_list);
         this.setTitle("Pending Requests");
 
-        //Extract admin's province
         user = FirebaseAuth.getInstance().getCurrentUser();
-        id = user.getUid();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("users").child(id);
+        userId= user.getUid();
+
+        database = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+
+
         database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot documentSnapshot) {
-                province = documentSnapshot.child("province").getValue(String.class);
+            public void onDataChange(DataSnapshot snapshot) {
+                province = snapshot.child("province").getValue(String.class);
             }
 
             @Override
@@ -62,12 +71,14 @@ public class pending_list extends AppCompatActivity {
             }
         });
 
+
         lv=(ListView) findViewById(R.id.LV);
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-
-
         Query query = databaseReference.orderByChild("status_province").equalTo("pending_" + province);
+
+        Log.d(TAG, "Province is " + province);
 
         FirebaseListOptions<memberData> options= new FirebaseListOptions.Builder<memberData>()
                 .setLayout(R.layout.allmemberdata)

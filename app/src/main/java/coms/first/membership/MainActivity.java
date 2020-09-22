@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.setTitle("Profile");
 
-        status_Province = findViewById(R.id.status_province);
         tehsil = findViewById(R.id.profileTeshil);
         district = findViewById(R.id.profileDistrict);
         division = findViewById(R.id.profileDivision);
@@ -125,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 district.setText(documentSnapshot.child("district").getValue(String.class));
                 division.setText(documentSnapshot.child("division").getValue(String.class));
                 province.setText(documentSnapshot.child("province").getValue(String.class));
-                status_province = documentSnapshot.child("status1").getValue(String.class) + "_" + documentSnapshot.child("province").getValue(String.class);
-                status_Province.setText(status_province);
+
             }
 
             @Override

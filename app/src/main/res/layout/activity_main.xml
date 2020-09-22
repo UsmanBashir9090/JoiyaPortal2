@@ -517,33 +517,7 @@
                 android:textSize="15sp"
                 />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:paddingLeft="15dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="Status:"
-                android:fontFamily="@font/montserrat"
-                android:textColor="#fff"
-                android:textSize="15sp"
-                />
-
-            <TextView
-                android:id="@+id/status_province"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:textColor="#ff0000"
-                android:fontFamily="@font/montserrat"
-                android:textSize="15sp"
-                />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

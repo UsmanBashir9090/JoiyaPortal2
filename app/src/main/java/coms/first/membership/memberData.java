@@ -33,6 +33,8 @@ public class memberData {
         this.status_province = status_province;
     }
 
+    public void setProvince(String province){this.province = province;}
+
     public String getName() {return name;}
     public String getEmail() {return email;}
     public String getPhone() {return phone;}
